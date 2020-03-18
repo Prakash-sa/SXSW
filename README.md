@@ -1,5 +1,5 @@
-# ETHIndia
-Use Moibit as decentralised storage to store images, video, files.
+# SXSW Hackathon
+Use Moibit as decentralised storage to store images, video, audio, files.
 
 # Demo
 
