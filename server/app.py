@@ -12,8 +12,8 @@ from datetime import date
 from flask_cors import CORS
 import time
 app = flask.Flask(__name__)
-CORS(app)
-run_with_ngrok(app)
+# CORS(app)
+# run_with_ngrok(app)
 
 def upload_file(file_name):
     url = 'https://kfs1.moibit.io/moibit/v0/writefile'
@@ -78,7 +78,7 @@ def remove_image(filename):
 
     
 @app.route('/store',methods = ['GET','POST'])
-def recieve_crappy():
+def recieve_song():
     try:
         lan = flask.request.get_json(force=True)
         lan1 = lan['image']
@@ -103,7 +103,7 @@ def recieve_crappy():
         return 'No file found'
 
 @app.route('/all_images',methods = ['GET','POST'])
-def send_files_name():
+def send_songs_name():
     try:
         lan = flask.request.get_json(force = True)
         user = lan['user']
@@ -119,7 +119,7 @@ def send_files_name():
         return 'No filename for this user'
 
 @app.route('/send',methods = ['GET','POST'])
-def send_crappy():
+def send_song():
     lan = flask.request.get_json(force=True)
     image = lan['image']
     user = lan['user']
@@ -143,7 +143,7 @@ def send_crappy():
     return my_string
     
 @app.route('/delete',methods = ['GET','POST'])
-def delete_image():
+def delete_song():
     lan = flask.request.get_json(force = True)
     user = lan['user']
     image = lan['image']
@@ -154,7 +154,7 @@ def delete_image():
             for line in lines:
                 if image not in line:
                     f.write(line)
-        if '.mp4' in image:
+        if '.mp4' or '.mp3' in image:
             remove(image)
         else:
             remove_image(image)
@@ -291,6 +291,25 @@ def live_stream_download():
         image_encode = base64.encodestring(image_reader)
     return image_encode
 
+@app.route('/music_download',methods = ['GET','POST'])
+def live_music_download():
+    lan = flask.request.get_json(force = True)
+    user = lan['user']
+    name = lan['name']
+    with open(user+'.txt') as f:
+        lines = f.readlines()
+    for line in lines:
+        if name in line:
+            #client.get(line[:59])
+            download_file_video(line[:59],name)
+            break
+    #uu.decode('video.txt','video-copy.mp4')
+    uu.decode(name+'.txt','video-copy.mp3')
+    with open('video-copy.mp3','rb') as image:
+        image_reader = image.read()
+        image_encode = base64.encodestring(image_reader)
+    return image_encode
+
 @app.route('/qrcode',methods = ['GET','POST'])
 def qr_code_scanner():
     lan = flask.request.get_json(force=True)
@@ -386,8 +405,8 @@ def images_public_download():
     #os.remove(image+'.tfci')
     return my_string
 
-app.run()
+#app.run()
 
-# if __name__ == '__main__':
-#     app.debug = True
-#     app.run(host='0.0.0.0', port = 5000)
+if __name__ == '__main__':
+    app.debug = True
+    app.run(host='0.0.0.0', port = 5000)
