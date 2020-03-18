@@ -15,7 +15,7 @@
         android:textSize="20dp"
         android:fontFamily="monospace"
         android:layout_centerInParent="true"
-        android:text="No images uploaded"/>
+        android:text="No data uploaded"/>
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

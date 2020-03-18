@@ -82,7 +82,7 @@ public class Everyone extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_everyone);
-        setTitle("Public Images");
+        setTitle("Public");
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         final int MyVersion = Build.VERSION.SDK_INT;
         if (MyVersion > Build.VERSION_CODES.LOLLIPOP_MR1) {

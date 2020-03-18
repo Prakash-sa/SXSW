@@ -200,7 +200,7 @@ public class DisplayImageActivity extends AppCompatActivity {
         });
 
         // initialise cacheObject
-        //cacheImage = new CacheImage(DisplayImageActivity.this);
+        cacheImage = new CacheImage(DisplayImageActivity.this);
 
     }
 
